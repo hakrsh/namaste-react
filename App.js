@@ -1,3 +1,6 @@
+import React from "react"
+import ReactDOM from "react-dom/client"
+
 const reactHeading = React.createElement("h1", {
     id: "heading" // attibutes
 }, "Hello World from  React!") // children
