@@ -171,3 +171,77 @@ In summary, bundlers are indeed crucial in optimizing web applications for speed
    - Babel can be integrated into the build process of a project using tools like webpack, Parcel, or npm scripts. It's often used alongside other tools like webpack to bundle and optimize JavaScript code for production deployment.
    - In the context of React development, Babel is typically used to compile JSX syntax into regular JavaScript, allowing developers to write React components using JSX without worrying about browser compatibility issues.
 
+## React component 
+A React component is a fundamental building block of a React application. Components are reusable, self-contained modules that encapsulate a piece of UI functionality. They can range from simple elements like buttons or input fields to complex structures like entire sections of a webpage.
+
+React components can be of two types: 
+
+1. **Functional Components**: These are JavaScript functions that take props (short for properties) as arguments and return React elements, describing what should appear on the screen. They are also referred to as stateless components because they don't manage state.
+
+   ```jsx
+   function Welcome(props) {
+     return <h1>Hello, {props.name}</h1>;
+   }
+   ```
+
+2. **Class Components**: These are ES6 classes that extend `React.Component` and have their own state. They include a `render()` method that returns a React element.
+
+   ```jsx
+   class Welcome extends React.Component {
+     render() {
+       return <h1>Hello, {this.props.name}</h1>;
+     }
+   }
+   ```
+
+React components follow a unidirectional data flow, meaning data flows down from parent components to child components through props. This makes the code predictable and easier to understand. Components can also manage their internal state, making them dynamic and interactive. 
+
+Overall, React components play a crucial role in structuring and organizing the UI of React applications, promoting reusability, modularity, and maintainability.
+
+## Component composition
+Component composition in React refers to the practice of building complex UIs by combining multiple smaller, reusable components together. It's a core principle of React development, allowing developers to create large and sophisticated user interfaces while keeping the codebase modular, maintainable, and easy to understand.
+
+There are a few key concepts related to component composition:
+
+1. **Reusability**: Components are designed to be reusable. By composing them together, developers can leverage the same component in multiple parts of an application, reducing duplication and promoting consistency.
+
+2. **Encapsulation**: Each component encapsulates a specific piece of functionality or UI. By composing components together, developers can create higher-level components that represent more complex UI elements or behaviors, while still maintaining encapsulation and separation of concerns.
+
+3. **Abstraction**: Component composition allows developers to abstract away complexity. Instead of building everything from scratch, developers can use existing components as building blocks to construct more complex UIs. This promotes code reuse and accelerates development.
+
+4. **Hierarchy**: Components can be composed hierarchically, with smaller components nested within larger ones. This hierarchical structure mirrors the structure of the UI itself, making it intuitive and easy to reason about.
+
+Here's a simple example of component composition in React:
+
+```jsx
+// ParentComponent.jsx
+import React from 'react';
+import ChildComponent from './ChildComponent';
+
+function ParentComponent() {
+  return (
+    <div>
+      <h1>Parent Component</h1>
+      <ChildComponent />
+    </div>
+  );
+}
+
+export default ParentComponent;
+
+// ChildComponent.jsx
+import React from 'react';
+
+function ChildComponent() {
+  return (
+    <div>
+      <h2>Child Component</h2>
+      <p>This is a child component.</p>
+    </div>
+  );
+}
+
+export default ChildComponent;
+```
+
+In this example, `ParentComponent` is composed of `ChildComponent`. By nesting `ChildComponent` within `ParentComponent`, we can create a more complex UI structure while keeping the code modular and reusable. This is a basic example, but component composition can be used to create highly complex and sophisticated UIs in React applications.
