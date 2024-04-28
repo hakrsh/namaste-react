@@ -276,3 +276,51 @@ Here's why using index as a key is considered an anti-pattern:
 4. **Potential Data Loss**: If the underlying data changes, such as items being added or removed from the list, using index as keys can lead to potential data loss or corruption. React may mistakenly associate different data with the same index, leading to inconsistencies in the application state and user experience.
 
 To avoid these issues, it's recommended to use unique and stable identifiers as keys whenever possible. If the list items don't have natural unique identifiers, you can generate unique keys based on item properties or assign unique IDs to each item. This ensures that React can accurately track changes to the list and maintain component state correctly, leading to a more robust and reliable application.
+
+## Default exports and named exports
+
+**Default Export:**
+
+- **Usage**: In ES6 modules, a default export is used to export a single value, function, or object from a module. This exported value is considered the "default" export of the module.
+- **Syntax for Exporting**: To export something as default, you use the `export default` syntax followed by the value you want to export. For example:
+
+    ```javascript
+    // Module A
+    const myValue = 'Hello';
+    export default myValue;
+    ```
+
+- **Syntax for Importing**: When importing a default export, you can choose any name for the imported value. For example:
+
+    ```javascript
+    // Module B
+    import myValue from './ModuleA';
+    ```
+
+- **Usage in Importing**: When importing a default export, you don't need curly braces `{}` around the imported name. You can directly use the name you assigned during import.
+
+**Named Export:**
+
+- **Usage**: Named exports allow you to export multiple values, functions, or objects from a module. Each exported entity is given a name.
+- **Syntax for Exporting**: To export something by name, you use the `export` keyword followed by the name of the entity you want to export. For example:
+
+    ```javascript
+    // Module A
+    export const myFunction = () => {...};
+    export const myVariable = 'World';
+    ```
+
+- **Syntax for Importing**: When importing named exports, you must use the same name as the exported entity. For example:
+
+    ```javascript
+    // Module B
+    import { myFunction, myVariable } from './ModuleA';
+    ```
+
+- **Usage in Importing**: When importing named exports, you need to use curly braces `{}` around the names of the entities you want to import.
+
+**Differences:**
+
+- Default exports are for exporting a single value or object from a module, while named exports are for exporting multiple values or objects.
+- Default exports are imported using any name in the importing module, while named exports are imported using the exact names they were exported with.
+- Default exports are typically used for modules that export a single thing, like a class or a function, while named exports are used for exporting multiple things from a module.
