@@ -324,3 +324,54 @@ To avoid these issues, it's recommended to use unique and stable identifiers as 
 - Default exports are for exporting a single value or object from a module, while named exports are for exporting multiple values or objects.
 - Default exports are imported using any name in the importing module, while named exports are imported using the exact names they were exported with.
 - Default exports are typically used for modules that export a single thing, like a class or a function, while named exports are used for exporting multiple things from a module.
+
+## Hooks
+React hooks are just normal JS functions (utility functions). 2 most important ones are useState and useEffect. 
+useState will let us created super charged js variables aks State
+
+## [react-fiber-architecture](https://github.com/acdlite/react-fiber-architecture)
+React Fiber is an internal implementation detail of React, introduced in React 16. It's a complete reimplementation of the React reconciliation algorithm, designed to improve performance and enable new features like asynchronous rendering and suspense.
+
+Here's a breakdown of what React Fiber is and why it's important:
+
+1. **Reconciliation Algorithm**: React Fiber is primarily focused on the reconciliation process, which is the mechanism React uses to determine what changes need to be applied to the UI in response to changes in state or props. The Fiber architecture introduces a more efficient and incremental reconciliation algorithm compared to the previous stack-based approach.
+
+2. **Incremental Rendering**: One of the key benefits of React Fiber is its support for incremental rendering. With Fiber, React can split the rendering work into smaller units, or "fibers," and prioritize which parts of the UI to update first. This enables more responsive and smoother user interfaces, especially for complex applications with large component trees.
+
+3. **Asynchronous Rendering**: React Fiber lays the groundwork for asynchronous rendering, allowing React to pause and resume rendering work to prevent blocking the main thread. This is crucial for improving perceived performance and responsiveness, especially in scenarios with heavy rendering or long-running tasks.
+
+4. **Concurrency and Suspense**: React Fiber paves the way for features like concurrent rendering and suspense. Concurrent rendering enables React to work on multiple tasks concurrently, making better use of available resources and reducing latency. Suspense allows components to suspend rendering while waiting for asynchronous data to resolve, leading to a better user experience with smoother loading states and error handling.
+
+5. **Better Error Handling and Debugging**: Fiber also improves React's error handling and debugging capabilities. It introduces more granular error boundaries and error handling mechanisms, making it easier to isolate and diagnose issues within the component tree.
+
+Overall, React Fiber is a significant internal rearchitecture of React that focuses on improving performance, enabling new features like asynchronous rendering and suspense, and enhancing error handling and debugging capabilities. While Fiber itself is an implementation detail and typically not directly interacted with by React developers, its benefits are felt through improved performance and user experience in React applications.
+
+## Virtual DOM
+The Virtual DOM is a concept and implementation strategy used by React to improve the performance of rendering updates in web applications. Here's an explanation of what the Virtual DOM is and how it works:
+
+1. **What is the Virtual DOM?**
+
+   The Virtual DOM is an in-memory representation of the actual DOM (Document Object Model) elements in a web page. It's a lightweight copy of the real DOM tree that React keeps internally. Whenever a component's state or props change, React re-renders the component and updates the Virtual DOM tree accordingly.
+
+2. **How does it work?**
+
+   When React renders a component, it first creates a Virtual DOM representation of that component and its children. This Virtual DOM is a plain JavaScript object that describes the structure of the UI elements, including their types, attributes, and children.
+
+   Once the Virtual DOM is created, React compares it with the previous Virtual DOM snapshot to identify the differences or "diffs" between the two. It then calculates the most efficient way to update the actual DOM to reflect these changes.
+
+   Finally, React applies these changes to the real DOM, updating only the parts of the page that have actually changed. This process of computing the differences and applying minimal updates to the DOM is what makes React's rendering process efficient.
+
+3. **Why is it important?**
+
+   The Virtual DOM provides several benefits for web development:
+
+   - **Performance**: By minimizing the number of DOM updates and batch processing them, React can achieve better performance compared to manual DOM manipulation or full re-renders of the entire page.
+   
+   - **Abstraction**: The Virtual DOM abstracts away the details of interacting with the actual browser DOM, allowing developers to focus on writing declarative UI components without worrying about performance optimizations.
+   
+   - **Cross-platform**: The Virtual DOM enables React to work seamlessly across different platforms, including web browsers, mobile devices, and even server-side rendering environments, by providing a consistent API for managing UI updates.
+
+4. **Reconciliation**
+
+   The process of comparing the Virtual DOM with the previous snapshot and determining the minimal set of changes to apply is known as reconciliation. React's diffing algorithm, which is part of the reconciliation process, is responsible for efficiently computing these changes.
+
