@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ResData } from "./data";
 
 const Header = () => (
   <div className="header">
@@ -19,34 +20,26 @@ const Header = () => (
     </div>
   </div>
 );
-const RestaurantCard = () => (
-  <div className="res-card">
-    <img
-      src="https://assets-global.website-files.com/5e9ebc3fff165933f19fbdbe/61b31c9d289e22335b6753b2_Ice%20Cream%202.jpg"
-      className="food-img"
-    />
-    <h2>Icecream</h2>
-    <h3>4.4 stars</h3>
-    <h3>15 minuts</h3>
-  </div>
-);
+const RestaurantCard = ({resData}) => {
+    const {name,image,rating,costText,cuisine} = resData?.info;
+    return (   
+        <div className="res-card">
+          <img
+            src={image.url}
+            className="food-img"
+          />
+          <h2>{name}</h2>
+          <h3>{cuisine.map(c=>c.name).join(', ')}</h3>
+          <h3>Rating {rating.aggregate_rating} {rating.rating_subtitle}</h3>
+          <h3>{costText.text}</h3>
+          
+        </div>
+      );
+}
 const Search = () => <div className="search">Search</div>;
 const ResCardContainer = () => (
   <div className="res-container">
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
-    <RestaurantCard />
+    {ResData.map(data => <RestaurantCard key={data.info.resId} resData={data}/>)}
   </div>
 );
 const Body = () => (

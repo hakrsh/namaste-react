@@ -25,14 +25,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.res-container::after {
+/* .res-container::after {
   content: "";
   flex: auto;
-}
+} */
 
 .res-card {
   width: 200px;
-  height: 300px;
   padding: 5px;
 }
 
