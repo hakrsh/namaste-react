@@ -1,27 +1,34 @@
-import RestaurantCard from "./RestaurantCard";
-import resData from "../utils/mockData";
-import { useState } from "react";
+import ProductCard from "./ProductCard";
+import { useState, useEffect } from "react";
 
 const Body = () => {
-  const [listofResaturants, setListofResaturants] = useState(resData); // array destructuring
+  const [listOfProducts, setListOfProducts] = useState([]); // array destructuring
+  useEffect(() => {
+    fetchData()
+  }, []);
+  const fetchData = async () => {
+    const res = await fetch("https://dummyjson.com/products");
+    const data = await res.json()
+    setListOfProducts(data?.products)
+  };
   return (
     <div className="body">
       <div className="search">
         <button
           onClick={() =>
-            setListofResaturants(
-              resData.filter(
-                (restaurant) => restaurant.info.rating.aggregate_rating >= 4
+            setListOfProducts(
+              listOfProducts.filter(
+                (product) => product.rating > 4.5
               )
             )
           }
         >
-          Filter
+          Top rated products
         </button>
       </div>
       <div className="res-container">
-        {listofResaturants.map((data) => (
-          <RestaurantCard key={data.info.resId} resData={data} />
+        {listOfProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>

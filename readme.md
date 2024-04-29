@@ -375,3 +375,107 @@ The Virtual DOM is a concept and implementation strategy used by React to improv
 
    The process of comparing the Virtual DOM with the previous snapshot and determining the minimal set of changes to apply is known as reconciliation. React's diffing algorithm, which is part of the reconciliation process, is responsible for efficiently computing these changes.
 
+## Optional chaining
+Optional chaining is a feature introduced in JavaScript to simplify the process of accessing properties or calling methods on potentially null or undefined values without causing errors like "Cannot read property 'x' of undefined." 
+
+Here's how it works:
+
+1. **Traditional Approach**: Before optional chaining, you might have used a series of conditional statements or the `&&` operator to check if each nested property exists before accessing it. For example:
+
+```javascript
+if (obj && obj.prop && obj.prop.method) {
+    // Access obj.prop.method safely
+}
+```
+
+2. **Optional Chaining**: With optional chaining, you can directly access nested properties or methods without worrying if any intermediate property is null or undefined. If any part of the chain is null or undefined, the entire expression will simply evaluate to undefined. 
+
+```javascript
+// Using optional chaining
+const result = obj?.prop?.method?.(); // If any part is null or undefined, result will be undefined
+```
+
+In this example:
+- `obj` is checked for existence.
+- If `obj` exists, `prop` is checked.
+- If `prop` exists, `method` is checked.
+- If all three exist, `method` is called.
+
+If `obj`, `prop`, or `method` is null or undefined at any point, the expression evaluates to undefined, and no error is thrown. 
+
+This syntax makes code cleaner and more concise, especially when dealing with deeply nested structures where traditional null checks can become cumbersome. Optional chaining is supported in modern JavaScript environments, but it's important to note that it's not supported in older browsers, so you might need to transpile your code using a tool like Babel if you need to support older environments.
+
+## useEffect
+`useEffect` is a hook provided by React that allows you to perform side effects in function components. Side effects could include data fetching, subscriptions, or manually changing the DOM.
+
+Here's a breakdown of how `useEffect` works:
+
+1. **Syntax**: It's typically used like this:
+
+```jsx
+import React, { useEffect } from 'react';
+
+function MyComponent() {
+  useEffect(() => {
+    // Side effect code goes here
+    // It will run after every render by default
+  });
+  
+  return (
+    // JSX for your component
+  );
+}
+```
+
+2. **Dependencies Array**: You can also pass an optional second argument to `useEffect`, which is an array of dependencies. This array tells React to only re-run the effect if one of the dependencies has changed. For example:
+
+```jsx
+useEffect(() => {
+  // Side effect code
+}, [dependency1, dependency2]);
+```
+
+3. **Cleanup**: The function returned by `useEffect` can be used for cleanup. This is important for avoiding memory leaks or other issues caused by leftover resources. For example, unsubscribing from a subscription or clearing a timer.
+
+```jsx
+useEffect(() => {
+  // Side effect code
+
+  return () => {
+    // Cleanup code
+  };
+}, [dependency]);
+```
+
+4. **Runs After Render**: By default, `useEffect` runs after every render. However, you can specify dependencies to control when it runs.
+
+5. **Common Use Cases**: `useEffect` is commonly used for data fetching with APIs (like `fetch` or Axios), subscribing to external events (like scroll events or keyboard events), setting up timers or intervals, and cleaning up resources.
+
+Here's a simple example of fetching data using `useEffect`:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function MyComponent() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('https://api.example.com/data')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []); // Empty dependency array means this effect runs only once, similar to componentDidMount
+
+  return (
+    <div>
+      {data ? (
+        <div>Data: {JSON.stringify(data)}</div>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+  );
+}
+```
+
+This component fetches data from an API when it mounts (similar to `componentDidMount` in class components) and stores the data in the component's state.
