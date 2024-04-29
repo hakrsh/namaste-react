@@ -16,8 +16,8 @@
 
 .nav > ul > li {
   list-style: none;
-  padding: 10px;
-  margin-right: 20px;
+  /* padding: 10px; */
+  margin: 20px;
   font-size: large;
 }
 .res-container {
@@ -33,6 +33,8 @@
 .res-card {
   width: 200px;
   padding: 5px;
+  background-color: aliceblue;
+  margin: 10px;
 }
 
 .food-img {
@@ -46,4 +48,21 @@
 
 .search {
   margin: 10px;
+}
+
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.shimmer-card {
+  width: 250px;
+  height: 300px;
+  background-color:aliceblue;
+  margin: 10px;
+}
+
+.login {
+  padding: 20px;
+  margin-right: 10px;
 }

@@ -1,4 +1,5 @@
 import ProductCard from "./ProductCard";
+import Shimmer from "./Shimmer";
 import { useState, useEffect } from "react";
 
 const Body = () => {
@@ -11,7 +12,8 @@ const Body = () => {
     const data = await res.json()
     setListOfProducts(data?.products)
   };
-  return (
+  // Conditional rendering
+  return !listOfProducts.length ? <Shimmer/> : (
     <div className="body">
       <div className="search">
         <button

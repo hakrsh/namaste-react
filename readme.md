@@ -479,3 +479,19 @@ function MyComponent() {
 ```
 
 This component fetches data from an API when it mounts (similar to `componentDidMount` in class components) and stores the data in the component's state.
+## Shimmer UI
+Shimmer UI, also known as skeleton loading or skeleton screens, is a user interface design technique used to indicate to users that content is being loaded or is in the process of loading. It's particularly common in web and mobile applications where data retrieval from servers might take some time.
+
+The shimmer effect typically involves showing a placeholder animation in the shape of the content that will eventually be displayed. This animation often consists of animated gradients or patterns that move across the screen, giving the impression of activity and indicating that the page or component is not static.
+
+Here's how the shimmer UI technique is commonly implemented:
+
+1. **Placeholder Structure**: Design a placeholder structure that mimics the layout of the actual content to be loaded. This ensures that the user sees a preview of where the content will appear.
+
+2. **Animated Shimmer Effect**: Apply an animated shimmer effect to the placeholder structure. This effect usually involves animating gradients or patterns to create the illusion of movement and activity.
+
+3. **Loading State**: Display the shimmer UI while the actual content is being fetched from the server. This gives users immediate feedback that something is happening in the background.
+
+4. **Replace with Actual Content**: Once the content is loaded, replace the shimmer UI with the actual content. This transition should be smooth to provide a seamless user experience.
+
+Shimmer UI is effective because it provides users with visual feedback that the application is responsive and actively working to fetch content, reducing perceived loading times and improving user satisfaction. It's often used in scenarios where loading times might be longer, such as when fetching data over a slow network connection or when dealing with large amounts of data.
