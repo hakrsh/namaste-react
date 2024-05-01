@@ -8,6 +8,10 @@ const Body = () => {
   const [listOfProducts, setListOfProducts] = useState([]); // array destructuring
   const [listOfFilteredProdcuts, setListOfFilteredProdcuts] = useState([]);
   const [searchText, setSearchText] = useState("");
+  // useEffect takes 2 arguments, a callback function and a an optional dependecy array
+  // if no dependency array => useEffect is callled on every render of the component
+  // if dependency array is [] => useEffect is callled once (on initial render)
+  // if dependency array is not empty => useEffect is callled every time the dependency updates
   useEffect(() => {
     fetchData();
   }, []);
