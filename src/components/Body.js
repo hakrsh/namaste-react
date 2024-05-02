@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { useState, useEffect } from "react";
 import { RESTAURANT_API, X_CORS_API_KEY } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   // Whenever state variables updates, react trigger a reconcilation cycle(re-render the component)
@@ -74,7 +75,12 @@ const Body = () => {
       </div>
       <div className="res-container">
         {listOfFilteredRestaurant.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} restaurant={restaurant} />
+          <Link
+            to={"restaurant/" + restaurant.info.id}
+            key={restaurant.info.id}
+          >
+            <RestaurantCard restaurant={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
