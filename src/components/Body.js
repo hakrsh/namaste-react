@@ -1,12 +1,13 @@
-import ProductCard from "./ProductCard";
+import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { useState, useEffect } from "react";
+import { RESTAURANT_API, X_CORS_API_KEY } from "../utils/constants";
 
 const Body = () => {
   // Whenever state variables updates, react trigger a reconcilation cycle(re-render the component)
   console.log("Body Rendered!");
-  const [listOfProducts, setListOfProducts] = useState([]); // array destructuring
-  const [listOfFilteredProdcuts, setListOfFilteredProdcuts] = useState([]);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]); // array destructuring
+  const [listOfFilteredRestaurant, setListOfFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
   // useEffect takes 2 arguments, a callback function and a an optional dependecy array
   // if no dependency array => useEffect is callled on every render of the component
@@ -17,13 +18,21 @@ const Body = () => {
   }, []);
   const fetchData = async () => {
     console.log("fetching data");
-    const res = await fetch("https://dummyjson.com/products");
+    const res = await fetch(RESTAURANT_API, {
+      headers: {
+        "x-cors-api-key": X_CORS_API_KEY,
+      },
+    });
     const data = await res.json();
-    setListOfProducts(data?.products);
-    setListOfFilteredProdcuts(data?.products);
+    setListOfRestaurants(
+      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setListOfFilteredRestaurant(
+      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
   // Conditional rendering
-  return !listOfProducts.length ? (
+  return !listOfRestaurants.length ? (
     <Shimmer />
   ) : (
     <div className="body">
@@ -38,9 +47,11 @@ const Body = () => {
           ></input>
           <button
             onClick={() => {
-              setListOfFilteredProdcuts(
-                listOfProducts.filter((product) =>
-                  product.title.toLowerCase().includes(searchText.toLowerCase())
+              setListOfFilteredRestaurant(
+                listOfRestaurants.filter((restaurant) =>
+                  restaurant.info.name
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase())
                 )
               );
             }}
@@ -51,17 +62,19 @@ const Body = () => {
         <button
           className="filter"
           onClick={() =>
-            setListOfFilteredProdcuts(
-              listOfFilteredProdcuts.filter((product) => product.rating > 4.5)
+            setListOfFilteredRestaurant(
+              listOfFilteredRestaurant.filter(
+                (restaurant) => restaurant.info.avgRating >= 4
+              )
             )
           }
         >
-          Top rated products
+          Top rated Restaurants
         </button>
       </div>
       <div className="res-container">
-        {listOfFilteredProdcuts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {listOfFilteredRestaurant.map((restaurant) => (
+          <RestaurantCard key={restaurant.info.id} restaurant={restaurant} />
         ))}
       </div>
     </div>
