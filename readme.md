@@ -626,3 +626,29 @@ onClick={() => {
 ```
 
 This ensures that each call to `setCount` gets the latest state, not the stale state from when the component was rendered. So, each call increments `count` by 1 from the previous value, effectively updating it by 3.
+## Lazy loading
+Lazy loading in React refers to a technique used to improve performance by delaying the loading of components or assets until they are needed. This is particularly useful in large React applications where loading all components at once might result in slower initial loading times and increased memory usage.
+
+Here's how lazy loading typically works in React:
+
+1. **Code Splitting**: The React application's code is split into smaller chunks, usually based on routes or components. Each chunk represents a separate bundle of code.
+
+2. **Dynamic Imports**: Instead of importing components or modules at the top of your file, you use dynamic imports provided by JavaScript, typically using `React.lazy()` or `import()` syntax. For example:
+
+    ```javascript
+    const MyComponent = React.lazy(() => import('./MyComponent'));
+    ```
+
+    This tells React to load `MyComponent` lazily, i.e., only when it's needed.
+
+3. **Suspense**: When using `React.lazy()`, you also use a `Suspense` component to handle the loading state. `Suspense` allows you to specify a fallback UI to display while the lazy-loaded component is loading. For example:
+
+    ```javascript
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <MyComponent />
+    </React.Suspense>
+    ```
+
+4. **Loading on Demand**: Lazy-loaded components are loaded asynchronously when they are rendered for the first time. This means they won't be included in the initial bundle, reducing the initial load time of your application. Instead, they are fetched from the server only when needed, typically triggered by user actions like navigating to a specific route.
+
+By using lazy loading, you can improve the performance of your React application by reducing the initial bundle size and deferring the loading of less critical components until they are actually needed, leading to faster load times and a smoother user experience.
