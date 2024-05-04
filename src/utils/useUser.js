@@ -15,13 +15,7 @@ const useUser = () => {
     setUser(users[index]);
   };
   useEffect(() => {
-    const timer = setInterval(() => {
-      console.log("hi there from functional component!");
-    }, 1000);
     fetchUsers();
-    return () => {
-      clearInterval(timer);
-    };
   }, []);
   return user;
 };

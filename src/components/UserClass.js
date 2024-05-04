@@ -13,10 +13,10 @@ class UserClass extends React.Component {
         username: "",
       },
     };
-    console.log(this.props.name + "Child constructor");
+    // console.log(this.props.name + "Child constructor");
   }
   async componentDidMount() {
-    console.log(this.props.name + "Child component did mount");
+    // console.log(this.props.name + "Child component did mount");
     const data = await fetch(USERS_API);
     const json = await data.json();
     const users = json?.users;
@@ -25,14 +25,17 @@ class UserClass extends React.Component {
       user: users[index],
     });
     this.timer = setInterval(() => {
-      console.log("Hi there from class component");
+      this.setState({
+        count1: this.state.count1 + 1,
+      });
     }, 1000);
   }
   componentWillUnmount() {
+    console.log("Remove setInterval [Class component]");
     clearInterval(this.timer);
   }
   render() {
-    console.log(this.props.name + "Child render");
+    // console.log(this.props.name + "Child render");
     const { firstName, address, username } = this.state.user;
     const { count1, count2 } = this.state;
     return (
@@ -44,9 +47,8 @@ class UserClass extends React.Component {
         <p>Count2: {count2}</p>
         <button
           onClick={() => {
-            // NEVER UPDATE THE STATE VARIABLES DIRECTLY like this.state.count1++
+            // NEVER UPDATE THE STATE VARIABLES DIRECTLY this.state.count1++
             this.setState({
-              count1: count1 + 1,
               count2: count2 + 1,
             });
           }}

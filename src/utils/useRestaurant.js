@@ -11,18 +11,22 @@ const useRestaurant = () => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    console.log("fetching restaurants");
-    const res = await fetch(RESTAURANT_API, {
-      headers: {
-        "x-cors-api-key": X_CORS_API_KEY,
-      },
-    });
-    const data = await res.json();
-    const restaurants =
-      data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants;
-    setListOfRestaurants(restaurants);
-    setListOfFilteredRestaurant(restaurants);
+    try {
+      console.log("fetching restaurants");
+      const res = await fetch(RESTAURANT_API, {
+        headers: {
+          "x-cors-api-key": X_CORS_API_KEY,
+        },
+      });
+      const data = await res.json();
+      const restaurants =
+        data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants;
+      setListOfRestaurants(restaurants);
+      setListOfFilteredRestaurant(restaurants);
+    } catch (e) {
+      console.error(e.message);
+    }
   };
   return [
     listOfRestaurants,

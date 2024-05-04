@@ -1,6 +1,7 @@
 import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 // const [btnName, setBtnName] = useState("Login"); Never call useState outside the functional component
 // it's used to create local state variables inside the functional component
@@ -12,6 +13,7 @@ const Header = () => {
   // never create state variable inside conditional block/for loop/inside function -> can create inconsistencies
   // Keep them at the top
   const [btnName, setBtnName] = useState("Login"); // that's why we can change this const variable, re-render => calling this func again
+  const onlineStatus = useOnlineStatus();
   return (
     <div className="header">
       <div>
@@ -19,6 +21,7 @@ const Header = () => {
       </div>
       <div className="nav">
         <ul>
+          <li>Online:{onlineStatus ? "✅" : "🔴"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>

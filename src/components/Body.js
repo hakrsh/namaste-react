@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useRestaurant from "../utils/useRestaurant";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   // Whenever state variables updates, react trigger a reconcilation cycle(re-render the component)
@@ -12,6 +13,12 @@ const Body = () => {
     listOfFilteredRestaurant,
     setListOfFilteredRestaurant,
   ] = useRestaurant();
+  const onlineStatus = useOnlineStatus();
+  if (!onlineStatus) {
+    return (
+      <h1>Looks like you are offline, please check the internet connection!</h1>
+    );
+  }
   // Conditional rendering
   return !listOfRestaurants.length ? (
     <Shimmer />

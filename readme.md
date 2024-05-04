@@ -602,3 +602,27 @@ The Single Responsibility Principle (SRP) is one of the five SOLID principles of
 5. **Easier Refactoring:** When a class has a single responsibility, it's easier to identify when and how to refactor it. If the requirements change or the class becomes too large or complex, it's clear that the class should be refactored into smaller, more focused classes. This makes the refactoring process more manageable and less risky, as the impact of changes can be localized to specific classes.
 
 Overall, adhering to the Single Responsibility Principle leads to cleaner, more maintainable, and flexible codebases, which are essential for building scalable and robust software systems.
+##  Functional Updates with setState
+In React, state updates are asynchronous, meaning that when you call a state update function like `setCount`, React doesn't immediately apply the update. Instead, it batches state updates for performance reasons.
+
+```jsx
+onClick={() => {
+  setCount(count + 1);
+  setCount(count + 1);
+  setCount(count + 1);
+}}
+```
+
+So here all three calls to `setCount` are using the current value of `count`, which hasn't been updated yet because React batches state updates. So, if `count` is initially, say, 0, then all three calls will use that value, resulting in `count` being updated by 1 three times, effectively incrementing it by 1, not 3.
+
+To update the state by 3, you need to use the functional form of `setCount`
+
+```jsx
+onClick={() => {
+  setCount(prevCount => prevCount + 1);
+  setCount(prevCount => prevCount + 1);
+  setCount(prevCount => prevCount + 1);
+}}
+```
+
+This ensures that each call to `setCount` gets the latest state, not the stale state from when the component was rendered. So, each call increments `count` by 1 from the previous value, effectively updating it by 3.
