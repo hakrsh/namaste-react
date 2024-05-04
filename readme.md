@@ -477,8 +477,45 @@ function MyComponent() {
   );
 }
 ```
+### useEffect wrong usage
+```js
+useEffect(async () => {
+    const res = await fetch(RESTAURANT_MENU_API + restaurantId, {
+      headers: {
+        "x-cors-api-key": X_CORS_API_KEY,
+      },
+    });
+    const data = await res.json();
+    console.log(data);
+  }, []);
 
-This component fetches data from an API when it mounts (similar to `componentDidMount` in class components) and stores the data in the component's state.
+```
+
+1. **useEffect Expectations**: The `useEffect` hook in React expects its callback function to either return nothing or return a cleanup function. This cleanup function, if provided, is used for cleaning up any resources or subscriptions created within the effect.
+
+2. **Asynchronous Function Usage**: In your code, you're using an asynchronous function directly inside the `useEffect` callback. This asynchronous function is created using the `async` keyword, indicating that it returns a Promise.
+
+3. **Direct Usage of async Function**: When you directly use an async function inside `useEffect`, you're essentially returning a Promise from the effect. This violates the expectations of `useEffect` because it expects either no return value or a cleanup function.
+
+4. **Proper Usage**: Instead of directly using an async function, you should define an async function and call it inside the `useEffect` callback. This way, the `useEffect` callback adheres to the expected behavior, as it either returns nothing or returns a cleanup function.
+
+```js
+const fetchMenu = async () => {
+    const res = await fetch(RESTAURANT_MENU_API + restaurantId, {
+      headers: {
+        "x-cors-api-key": X_CORS_API_KEY,
+      },
+    });
+    const data = await res.json();
+    console.log(resInfo);
+  };
+useEffect(() => {
+    fetchMenu();
+  }, []);
+```
+
+![alt text](image.png)
+Instead of waiting for the api to give data and then render, render some shimmer UI first then re-render once the data is ready
 ## Shimmer UI
 Shimmer UI, also known as skeleton loading or skeleton screens, is a user interface design technique used to indicate to users that content is being loaded or is in the process of loading. It's particularly common in web and mobile applications where data retrieval from servers might take some time.
 
@@ -535,3 +572,18 @@ It's a type of web application that works within a web browser and dynamically u
 8. **Challenges with SEO**: Since SPAs initially load a single HTML page and dynamically update content using JavaScript, search engine crawlers may have difficulty indexing the content, potentially impacting search engine optimization (SEO). However, techniques such as server-side rendering or pre-rendering can be employed to address this issue.
 
 Overall, SPAs offer a modern approach to web development that emphasizes interactivity, responsiveness, and a seamless user experience by leveraging client-side rendering and dynamic content updates.
+
+## [React lifecycle](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+- MOUNTING
+  - constructor(dummy)
+  - render(dummy) [React will batch the render to optimise the performance]
+    - HTML with dummy data 
+  - componentDidMount() [React will batch the componentDidMount to optimise the performance]
+    - API Call
+    - this.setStata() -> State Variable is updated
+- UPDATEING
+  - render(new data)
+  - HMTL with the new data
+  - componentDidUpdate()
+- UNMOUNTING
+  - componentWillUnmount()
