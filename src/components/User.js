@@ -1,29 +1,9 @@
-import { useEffect, useState } from "react";
-import { USERS_API } from "../utils/constants";
-import { getRandomInRange } from "../utils/helper";
+import useUser from "../utils/useUser";
+import { useState } from "react";
 const User = (props) => {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
-  const [user, setUser] = useState({
-    name: "",
-    address: "",
-  });
-  const fetchUsers = async () => {
-    const data = await fetch(USERS_API);
-    const json = await data.json();
-    const users = json?.users;
-    const index = getRandomInRange(0, users?.length);
-    setUser(users[index]);
-  };
-  useEffect(() => {
-    const timer = setInterval(() => {
-      console.log("hi there from functional component!");
-    }, 1000);
-    fetchUsers();
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+  const user = useUser();
   const { firstName, address } = user;
   return (
     <div className="user-card">
