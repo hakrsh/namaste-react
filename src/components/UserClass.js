@@ -39,13 +39,14 @@ class UserClass extends React.Component {
     const { firstName, address, username } = this.state.user;
     const { count1, count2 } = this.state;
     return (
-      <div className="user-card">
-        <h2>{firstName}</h2>
-        <p>{address?.city}</p>
-        <p>{username}</p>
-        <p>Count1: {count1}</p>
-        <p>Count2: {count2}</p>
+      <div className="w-52 bg-gray-100 p-4 m-2 rounded-lg">
+        <h2 className="py-1">Name: {firstName}</h2>
+        <p className="py-1">Location: {address?.city}</p>
+        <p className="py-1">Username: {username}</p>
+        <p className="py-1">Count1: {count1}</p>
+        <p className="py-1">Count2: {count2}</p>
         <button
+          className="px-1 py-2 bg-green-100 rounded-lg"
           onClick={() => {
             // NEVER UPDATE THE STATE VARIABLES DIRECTLY this.state.count1++
             this.setState({

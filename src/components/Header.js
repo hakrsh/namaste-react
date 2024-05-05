@@ -15,25 +15,25 @@ const Header = () => {
   const [btnName, setBtnName] = useState("Login"); // that's why we can change this const variable, re-render => calling this func again
   const onlineStatus = useOnlineStatus();
   return (
-    <div className="header">
+    <div className="p-4 flex justify-between bg-yellow-100">
       <div>
-        <img src={LOGO_URL} className="logo" />
+        <img src={LOGO_URL} className="w-24" />
       </div>
-      <div className="nav">
-        <ul>
-          <li>Online:{onlineStatus ? "✅" : "🔴"}</li>
-          <li>
+      <div className="flex items-center">
+        <ul className="flex">
+          <li className="px-2">Online:{onlineStatus ? "✅" : "🔴"}</li>
+          <li className="px-2">
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="px-2">
             <Link to="/about">About Us</Link>
           </li>
-          <li>
+          <li className="px-2">
             <Link to="/contact">Contact Us</Link>
           </li>
-          <li>Cart</li>
+          <li className="px-2">Cart</li>
           <button
-            className="login"
+            className="bg-green-300 px-2 rounded-lg"
             onClick={() => {
               btnName === "Login" ? setBtnName("Logout") : setBtnName("Login");
             }}
