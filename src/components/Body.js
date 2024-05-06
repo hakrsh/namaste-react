@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromoted } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -14,6 +14,7 @@ const Body = () => {
     setListOfFilteredRestaurant,
   ] = useRestaurant();
   const onlineStatus = useOnlineStatus();
+  const RestaurantCardPromoted = withPromoted(RestaurantCard);
   if (!onlineStatus) {
     return (
       <h1>Looks like you are offline, please check the internet connection!</h1>
@@ -67,7 +68,11 @@ const Body = () => {
             to={"restaurant/" + restaurant.info.id}
             key={restaurant.info.id}
           >
-            <RestaurantCard restaurant={restaurant} />
+            {Math.random() < 0.5 ? (
+              <RestaurantCardPromoted restaurant={restaurant} />
+            ) : (
+              <RestaurantCard restaurant={restaurant} />
+            )}
           </Link>
         ))}
       </div>

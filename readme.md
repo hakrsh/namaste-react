@@ -652,3 +652,16 @@ Here's how lazy loading typically works in React:
 4. **Loading on Demand**: Lazy-loaded components are loaded asynchronously when they are rendered for the first time. This means they won't be included in the initial bundle, reducing the initial load time of your application. Instead, they are fetched from the server only when needed, typically triggered by user actions like navigating to a specific route.
 
 By using lazy loading, you can improve the performance of your React application by reducing the initial bundle size and deferring the loading of less critical components until they are actually needed, leading to faster load times and a smoother user experience.
+
+## Higher Order Component
+A Higher Order Component (HOC) is a pattern in React that allows you to reuse component logic. It is a function that takes a component and returns a new component with additional functionality. HOCs are a way to share behavior between components without duplicating code.
+
+Here's how a Higher Order Component typically works in React:
+
+1. **Accepts a Component**: The HOC function takes a component (or multiple components) as an argument.
+
+2. **Adds Additional Functionality**: Inside the HOC, you can add additional props, state, or behavior to the passed component(s). This can include things like handling data fetching, managing state, or adding event handlers.
+
+3. **Returns a New Component**: The HOC returns a new component that wraps the original component(s) and includes the additional functionality.
+
+4. **Usage**: You can then use the returned component just like any other React component in your application.
