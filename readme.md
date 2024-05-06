@@ -665,3 +665,18 @@ Here's how a Higher Order Component typically works in React:
 3. **Returns a New Component**: The HOC returns a new component that wraps the original component(s) and includes the additional functionality.
 
 4. **Usage**: You can then use the returned component just like any other React component in your application.
+
+## [Lifting state up](https://react.dev/learn/sharing-state-between-components#lifting-state-up-by-example)
+"Lifting state up" in React refers to the practice of managing and updating the state of multiple components from a common ancestor or parent component. This is often done to share stateful data between components that are not directly related in the component tree.
+
+Here's how it works:
+
+1. **Identify Common State**: You identify the data that needs to be shared among multiple components. This could be any piece of state data that is relevant to more than one component.
+
+2. **Move State Up**: Instead of storing the state in one of the child components that need it, you move it up to a common ancestor or parent component that is higher up in the component tree and is shared by all the components that need access to that state.
+
+3. **Pass State Down as Props**: Once the state is stored in the common ancestor component, you pass it down to the child components that need it as props.
+
+4. **Update State in Common Ancestor**: If any child component needs to update the shared state, it sends an event (like a callback function) to the common ancestor component, which then updates the state. The updated state is then passed down to all the child components that depend on it, triggering re-renders as necessary.
+
+This approach promotes a more predictable data flow and helps in keeping your application's state management organized, especially in larger applications where multiple components need access to the same state data. It also makes your components more reusable and easier to maintain.
