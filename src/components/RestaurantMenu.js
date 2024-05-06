@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import Shimmer from "./Shimmer";
 import useRestaurantInfo from "../utils/useRestaurantInfo";
 import Accordion from "./Accordion";
 import { useState } from "react";
+import ShimmerMenu from "./ShimmerMenu";
 
 const RestaurantMenu = () => {
   const [showItem, setShowItem] = useState({ index: null, toggle: false });
   const { restaurantId } = useParams();
   const resInfo = useRestaurantInfo(restaurantId);
-  if (!resInfo?.cards?.length) return <Shimmer />;
+  if (!resInfo?.cards?.length) return <ShimmerMenu />;
   const { text } = resInfo?.cards[0]?.card?.card;
   const categories =
     resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(

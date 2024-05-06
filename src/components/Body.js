@@ -1,5 +1,5 @@
 import RestaurantCard, { withPromoted } from "./RestaurantCard";
-import Shimmer from "./Shimmer";
+import ShimmerRestaurant from "./ShimmerRestaurant";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useRestaurant from "../utils/useRestaurant";
@@ -27,7 +27,7 @@ const Body = () => {
   }
   // Conditional rendering
   return !listOfRestaurants.length ? (
-    <Shimmer />
+    <ShimmerRestaurant />
   ) : (
     <div className="w-10/12 m-auto bg-gray-50 shadow-lg">
       <div className="flex w-6/12 m-auto p-2">
