@@ -20,7 +20,6 @@ const RestaurantMenu = () => {
     <div className="m-4 p-4 text-lg">
       <h1 className="text-center text-lg font-bold">{text}</h1>
       {categories.map((category, index) => {
-        console.log(category.card.card);
         const card = category?.card?.card;
         return (
           <Accordion

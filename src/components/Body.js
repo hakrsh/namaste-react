@@ -15,6 +15,11 @@ const Body = () => {
   ] = useRestaurant();
   const onlineStatus = useOnlineStatus();
   const RestaurantCardPromoted = withPromoted(RestaurantCard);
+  const filterRestuarants = () =>
+    listOfRestaurants.filter((restaurant) =>
+      restaurant.info.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+  const promoted = (restaurant) => restaurant?.info?.avgRating >= 4;
   if (!onlineStatus) {
     return (
       <h1>Looks like you are offline, please check the internet connection!</h1>
@@ -24,8 +29,8 @@ const Body = () => {
   return !listOfRestaurants.length ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="flex">
+    <div className="w-10/12 m-auto bg-gray-50 shadow-lg">
+      <div className="flex w-6/12 m-auto p-2">
         <div>
           <input
             className="m-2 p-2 border"
@@ -33,48 +38,49 @@ const Body = () => {
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setListOfFilteredRestaurant(filterRestuarants());
+              }
+            }}
           ></input>
           <button
             className="p-2 bg-green-200 rounded-lg"
             onClick={() => {
-              setListOfFilteredRestaurant(
-                listOfRestaurants.filter((restaurant) =>
-                  restaurant.info.name
-                    .toLowerCase()
-                    .includes(searchText.toLowerCase())
-                )
-              );
+              setListOfFilteredRestaurant(filterRestuarants());
             }}
           >
             Search
           </button>
           <button
-            className="m-2 p-2 bg-gray-100 rounded-lg"
+            className="m-2 p-2 bg-red-200 rounded-lg"
             onClick={() =>
               setListOfFilteredRestaurant(
-                listOfFilteredRestaurant.filter(
-                  (restaurant) => restaurant.info.avgRating >= 4
+                listOfFilteredRestaurant.filter((restaurant) =>
+                  promoted(restaurant)
                 )
               )
             }
           >
-            Top rated Restaurants
+            Promoted Restaurants
           </button>
         </div>
       </div>
       <div className="flex flex-wrap">
-        {listOfFilteredRestaurant.map((restaurant) => (
-          <Link
-            to={"restaurant/" + restaurant.info.id}
-            key={restaurant.info.id}
-          >
-            {Math.random() < 0.5 ? (
-              <RestaurantCardPromoted restaurant={restaurant} />
-            ) : (
-              <RestaurantCard restaurant={restaurant} />
-            )}
-          </Link>
-        ))}
+        {listOfFilteredRestaurant.map((restaurant) => {
+          return (
+            <Link
+              to={"restaurant/" + restaurant.info.id}
+              key={restaurant.info.id}
+            >
+              {promoted(restaurant) ? (
+                <RestaurantCardPromoted restaurant={restaurant} />
+              ) : (
+                <RestaurantCard restaurant={restaurant} />
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
